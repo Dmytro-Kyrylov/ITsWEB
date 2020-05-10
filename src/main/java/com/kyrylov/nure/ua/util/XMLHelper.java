@@ -6,6 +6,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -95,6 +96,10 @@ public final class XMLHelper {
         }
 
         return true;
+    }
+
+    public static boolean validate(String doc, String xsdFile) throws SAXException, IOException, ParserConfigurationException {
+        return validate(readXMLDocument(doc),xsdFile);
     }
 
     public static void createHTMLFromXmlDocument(String xmlFileName, String xslFileName, String htmlFileName)

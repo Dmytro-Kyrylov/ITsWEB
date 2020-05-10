@@ -1,4 +1,3 @@
-
 let $makeupProducts := doc("products.xml")/Products/makeUpProduct
 let $count := count($makeupProducts)
 return

@@ -1,6 +1,11 @@
 package com.kyrylov.nure.ua;
 
-import com.sun.org.apache.xerces.internal.dom.DeferredElementImpl;
+
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.vocabulary.DC_11;
+import org.apache.xerces.dom.DeferredElementImpl;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -8,6 +13,10 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Random;
 
 public final class MakeUpUtil {
@@ -98,6 +107,74 @@ public final class MakeUpUtil {
             }
 
         }
+    }
+
+    public static void xmlToRdf(org.w3c.dom.Document document) throws IOException {
+        Model model = ModelFactory.createDefaultModel();
+
+        org.w3c.dom.Element productsNode = document.getDocumentElement();
+        NodeList makeUpProductList = document.getDocumentElement().getElementsByTagName("makeUpProduct");
+        for (int i = 0; i < makeUpProductList.getLength() / 3; i++) {
+            Node makeUpProduct = makeUpProductList.item(i);
+
+            Resource productResource = model.createResource(makeUpProduct.getAttributes().getNamedItem("link").getNodeValue());
+
+            NodeList productElements = makeUpProduct.getChildNodes();
+            for (int elIdx = 0; elIdx < productElements.getLength(); elIdx++) {
+                Node productElement = productElements.item(elIdx);
+
+                if (productElement.getNodeName().equals("name")) {
+                    productResource.addProperty(DC_11.title, productElement.getFirstChild().getNodeValue());
+                }
+                if (productElement.getNodeName().equals("brand")) {
+                    String brandRus = translate("en", "ru", productElement.getFirstChild().getNodeValue());
+                    productResource.addProperty(DC_11.description, brandRus);
+                }
+                productResource.addProperty(DC_11.language, "ru");
+            }
+        }
+        for (int i = makeUpProductList.getLength() / 3; i < makeUpProductList.getLength(); i++) {
+            Node makeUpProduct = makeUpProductList.item(i);
+
+            Resource productResource = model.createResource(makeUpProduct.getAttributes().getNamedItem("link").getNodeValue());
+
+            NodeList productElements = makeUpProduct.getChildNodes();
+            for (int elIdx = 0; elIdx < productElements.getLength(); elIdx++) {
+                Node productElement = productElements.item(elIdx);
+
+                if (productElement.getNodeName().equals("name")) {
+                    String name = productElement.getFirstChild().getNodeValue();
+                    String nameEng = translate("ru", "en", name);
+                    productResource.addProperty(DC_11.title, nameEng);
+                }
+                if (productElement.getNodeName().equals("brand")) {
+                    productResource.addProperty(DC_11.description, productElement.getFirstChild().getNodeValue());
+                }
+                productResource.addProperty(DC_11.language, "en");
+            }
+        }
+
+        FileOutputStream rdfStream = new FileOutputStream(new File("products.rdf"));
+        model.write(rdfStream,"application/rdf+xml");
+        rdfStream.close();
+    }
+
+    private static String translate(String langFrom, String langTo, String text) throws IOException {
+        String urlStr = "https://script.google.com/macros/s/AKfycbz6UGaRMUODk35W9eZIjSz5K3Wc7yi2dHyQeZBph2E2jzeELr8K/exec" +
+                "?q=" + URLEncoder.encode(text, "UTF-8") +
+                "&target=" + langTo +
+                "&source=" + langFrom;
+        URL url = new URL(urlStr);
+        StringBuilder response = new StringBuilder();
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestProperty("User-Agent", "Mozilla/5.0");
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        return response.toString();
     }
 
 }
