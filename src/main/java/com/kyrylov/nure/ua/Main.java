@@ -81,40 +81,25 @@ public final class Main {
         in.close();
 
         System.out.println("first");
-//        ResIterator resIterator = model.listResourcesWithProperty(DC_11.language);
-//        Flux.generate(sink -> {
-//            if (resIterator.hasNext())
-//                sink.next(resIterator.next());
-//            else sink.complete();
-//        }).count().subscribe(x-> System.out.println("Count of triplets - " + x));
-
         System.out.println(Streams.stream(model.listResourcesWithProperty(DC_11.language))
                 .map(x->Streams.stream(x.listProperties()).count()).mapToLong(aLong -> aLong).sum());
 
         System.out.println("second");
-       // System.out.println(XMLHelper.validate("products.rdf","C:\\Users\\50601\\OneDrive\\JAVA\\ITsWEB\\ITsWEB\\dcmes-rdf.xsd"));
-
-        System.out.println("third");
-
-//        model.write(System.out);
         ResIterator resIterator1 = model.listResourcesWithProperty(DC_11.language);
         Flux.<ResourceImpl>generate(sink -> {
             if (resIterator1.hasNext())
                 sink.next((ResourceImpl) resIterator1.next());
             else sink.complete();
         }).subscribe(x -> {
-            x.listProperties(DC_11.title).toModel().write(System.out);
-            x.listProperties(DC_11.description).toModel().write(System.out);
-            x.listProperties(DC_11.language).toModel().write(System.out);
+            System.out.println(x.listProperties().toModel().toString());
         });
 
-        System.out.println("fourth");
-
+        System.out.println("third");
         ResIterator enIterator = model.listResourcesWithProperty(DC_11.language, "en");
         Flux.<ResourceImpl>generate(sink -> {
             if (enIterator.hasNext())
                 sink.next((ResourceImpl) enIterator.next());
             else sink.complete();
-        }).subscribe(x -> x.listProperties().toModel().write(System.out));
+        }).subscribe(x ->  System.out.println(x.listProperties().toModel().toString()));
     }
 }
