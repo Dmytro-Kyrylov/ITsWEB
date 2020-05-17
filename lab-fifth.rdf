@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+        xml:base="https://makeup.com.ua/#"
+        xmlns:mk="https://makeup.com.ua/#"
+        xmlns:dc="http://purl.org/dc/elements/1.1/">
+
+
+    <rdf:Description rdf:about="https://makeup.com.ua/product/36693/">
+          <dc:title>Бритва с 2 сменными кассетами</dc:title>
+          <rdfs:subClassOf rdf:resource="#shaving-machine"/>
+          <mk:price>241</mk:price>
+          <mk:group>Бритвенный станок</mk:group>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="https://makeup.com.ua/product/493037/">
+          <dc:title>Klapp Men Wash and Shave 2in1 Foam Gel</dc:title>
+          <rdfs:subClassOf rdf:resource="#gel"/>
+          <mk:price>946</mk:price>
+          <mk:age>25+</mk:age>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="https://makeup.com.ua/product/727362/">
+          <dc:title>Дезодорант-спрей Иланг-Иланг</dc:title>
+          <rdfs:subClassOf rdf:resource="#deodorant"/>
+          <mk:price>55</mk:price>
+          <mk:volume>50ml</mk:volume>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="https://makeup.com.ua/product/272423/">
+          <dc:title>Триммер для бороды и усов Remington MB4120 Beard Boss</dc:title>
+          <rdfs:subClassOf rdf:resource="#trimmer"/>
+          <mk:price>579</mk:price>
+          <mk:purpose>Стайлинг</mk:purpose>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="https://makeup.com.ua/product/625701/">
+          <dc:title>Насадка для машинки №1-3мм, 03114-001</dc:title>
+          <rdfs:subClassOf rdf:resource="#shearer"/>
+          <mk:price>70</mk:price>
+          <mk:purpose>Акксесуар</mk:purpose>
+    </rdf:Description>
+
+    <rdfs:Class rdf:ID="man-product"/>
+
+    <rdfs:Class rdf:ID="shaving">
+        <rdfs:subClassOf rdf:resource="#man-product"/>
+    </rdfs:Class>
+
+    <rdfs:Class rdf:ID="shaving-machine">
+        <rdfs:subClassOf rdf:resource="#shaving"/>
+    </rdfs:Class>
+
+    <rdfs:Class rdf:ID="gel">
+        <rdfs:subClassOf rdf:resource="#shaving"/>
+    </rdfs:Class>
+
+    <rdfs:Class rdf:ID="tools">
+        <rdfs:subClassOf rdf:resource="#man-product"/>
+    </rdfs:Class>
+
+    <rdfs:Class rdf:ID="trimmer">
+        <rdfs:subClassOf rdf:resource="tools"/>
+    </rdfs:Class>
+
+    <rdfs:Class rdf:ID="shearer">
+        <rdfs:subClassOf rdf:resource="tools"/>
+    </rdfs:Class>
+
+    <rdfs:Class rdf:ID="deodorant">
+        <rdfs:subClassOf rdf:resource="#man-product"/>
+    </rdfs:Class>
+
+    <rdf:Property rdf:ID="price">
+        <rdfs:domain rdf:resource="#man-product"/>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </rdf:Property>
+
+     <rdf:Property rdf:ID="starts">
+        <rdfs:domain rdf:resource="#man-product"/>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </rdf:Property>
+
+     <rdf:Property rdf:ID="volume">
+        <rdfs:domain rdf:resource="#deodorant"/>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </rdf:Property>
+
+     <rdf:Property rdf:ID="country">
+        <rdfs:domain rdf:resource="#man-product"/>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </rdf:Property>
+
+     <rdf:Property rdf:ID="type">
+        <rdfs:domain rdf:resource="#shaving-machine"/>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </rdf:Property>
+
+     <rdf:Property rdf:ID="classification">
+        <rdfs:domain rdf:resource="#gel"/>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </rdf:Property>
+
+     <rdf:Property rdf:ID="skin-type">
+        <rdfs:domain rdf:resource="#gel"/>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </rdf:Property>
+
+     <rdf:Property rdf:ID="purpose">
+        <rdfs:domain rdf:resource="#tools"/>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </rdf:Property>
+
+     <rdf:Property rdf:ID="group">
+        <rdfs:domain rdf:resource="#shaving"/>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </rdf:Property>
+
+     <rdf:Property rdf:ID="age">
+        <rdfs:domain rdf:resource="#gel"/>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </rdf:Property>
+
+</rdf:RDF>

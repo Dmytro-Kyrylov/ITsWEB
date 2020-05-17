@@ -6,14 +6,15 @@ import com.kyrylov.nure.ua.util.XMLHelper;
 import com.saxonica.xqj.SaxonXQDataSource;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.apache.jena.rdf.model.*;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.ResIterator;
 import org.apache.jena.rdf.model.impl.ResourceImpl;
 import org.apache.jena.util.FileManager;
 import org.apache.jena.vocabulary.DC_11;
 import org.jsoup.nodes.Document;
 import org.xml.sax.SAXException;
 import reactor.core.publisher.Flux;
-
 
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -23,14 +24,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Spliterator;
-import java.util.Spliterators;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Main {
@@ -39,7 +32,7 @@ public final class Main {
         //first();
         //second();
         //third();
-        fourth();
+        //fourth();
     }
 
     private static void third() throws IOException, SAXException, ParserConfigurationException, XQException {
@@ -82,7 +75,7 @@ public final class Main {
 
         System.out.println("first");
         System.out.println(Streams.stream(model.listResourcesWithProperty(DC_11.language))
-                .map(x->Streams.stream(x.listProperties()).count()).mapToLong(aLong -> aLong).sum());
+                .map(x -> Streams.stream(x.listProperties()).count()).mapToLong(aLong -> aLong).sum());
 
         System.out.println("second");
         ResIterator resIterator1 = model.listResourcesWithProperty(DC_11.language);
@@ -100,6 +93,6 @@ public final class Main {
             if (enIterator.hasNext())
                 sink.next((ResourceImpl) enIterator.next());
             else sink.complete();
-        }).subscribe(x ->  System.out.println(x.listProperties().toModel().toString()));
+        }).subscribe(x -> System.out.println(x.listProperties().toModel().toString()));
     }
 }
