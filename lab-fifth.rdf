@@ -9,36 +9,36 @@
 
     <rdf:Description rdf:about="https://makeup.com.ua/product/36693/">
           <dc:title>Бритва с 2 сменными кассетами</dc:title>
-          <rdfs:subClassOf rdf:resource="#shaving-machine"/>
+          <rdf:type rdf:resource="#shaving-machine"/>
           <mk:price>241</mk:price>
           <mk:group>Бритвенный станок</mk:group>
     </rdf:Description>
 
     <rdf:Description rdf:about="https://makeup.com.ua/product/493037/">
           <dc:title>Klapp Men Wash and Shave 2in1 Foam Gel</dc:title>
-          <rdfs:subClassOf rdf:resource="#gel"/>
+          <rdf:type rdf:resource="#gel"/>
           <mk:price>946</mk:price>
           <mk:age>25+</mk:age>
     </rdf:Description>
 
     <rdf:Description rdf:about="https://makeup.com.ua/product/727362/">
           <dc:title>Дезодорант-спрей Иланг-Иланг</dc:title>
-          <rdfs:subClassOf rdf:resource="#deodorant"/>
+          <rdf:type rdf:resource="#deodorant"/>
           <mk:price>55</mk:price>
           <mk:volume>50ml</mk:volume>
     </rdf:Description>
 
     <rdf:Description rdf:about="https://makeup.com.ua/product/272423/">
           <dc:title>Триммер для бороды и усов Remington MB4120 Beard Boss</dc:title>
-          <rdfs:subClassOf rdf:resource="#trimmer"/>
+          <rdf:type rdf:resource="#trimmer"/>
           <mk:price>579</mk:price>
           <mk:purpose>Стайлинг</mk:purpose>
     </rdf:Description>
 
     <rdf:Description rdf:about="https://makeup.com.ua/product/625701/">
           <dc:title>Насадка для машинки №1-3мм, 03114-001</dc:title>
-          <rdfs:subClassOf rdf:resource="#shearer"/>
-          <mk:price>70</mk:price>
+          <rdf:type rdf:resource="#shearer"/>
+          <mk:price>579</mk:price>
           <mk:purpose>Акксесуар</mk:purpose>
     </rdf:Description>
 
